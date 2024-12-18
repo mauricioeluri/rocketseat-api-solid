@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password_hash String    @db.VarChar(60)
+  created_at    DateTime  @default(now())
+  checkIns      CheckIn[]
+
+  @@map("users")
+}
+
+model CheckIn {
+  id           String    @id @default(uuid())
+  created_at   DateTime  @default(now())
+  validated_at DateTime?
+  user_id      String
+  gym_id       String
+  gym          Gym       @relation(fields: [gym_id], references: [id])
+  user         User      @relation(fields: [user_id], references: [id])
+
+  @@index([gym_id], map: "check_ins_gym_id_fkey")
+  @@index([user_id], map: "check_ins_user_id_fkey")
+  @@map("check_ins")
+}
+
+model Gym {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  phone       String?
+  latitude    Decimal
+  longitude   Decimal
+  checkIns    CheckIn[]
+
+  @@map("gyms")
+}

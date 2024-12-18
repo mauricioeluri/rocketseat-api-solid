@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "6.1.0",
+    "@types/bcryptjs": "2.4.6",
+    "bcryptjs": "2.4.3",
     "dotenv": "16.4.7",
     "fastify": "5.2.0",
     "zod": "3.24.1"
@@ -19,9 +22,10 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "2.2.2",
     "@types/node": "22.10.2",
+    "eslint": "8.56.0",
+    "prisma": "6.1.0",
     "tsup": "8.3.5",
     "tsx": "4.19.2",
-    "typescript": "5.0.4",
-    "eslint": "8.56.0"
+    "typescript": "5.0.4"
   }
 }

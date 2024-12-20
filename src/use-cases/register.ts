@@ -1,12 +1,17 @@
-import { prisma } from '@/lib/prisma'
 import { UsersRepository } from '@/repositories/users-repository'
+import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from './errors/user-alread-exists-error'
+import { P } from 'vitest/dist/chunks/environment.LoooBwUu'
 
 interface RegisterUseCaseRequest {
   name: string
   email: string
   password: string
+}
+
+interface RegisterUseCaseResponse {
+  user: User
 }
 
 // S: Single Responsibility Principle
@@ -15,10 +20,11 @@ interface RegisterUseCaseRequest {
 // I: Interface Segregation Principle
 // D: Dependency Inversion Principle
 
+
 export class RegisterUseCase {
   constructor(private usersRepository: UsersRepository) { }
 
-  async execute({ name, email, password }: RegisterUseCaseRequest) {
+  async execute({ name, email, password }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
     const userWithSameEmail = await this.usersRepository.findByEmail(email)
@@ -27,10 +33,11 @@ export class RegisterUseCase {
 
     // const prismaUsersRepository = new PrismaUsersRepository()
 
-    await this.usersRepository.create({
+    const user = await this.usersRepository.create({
       name,
       email,
       password_hash,
     })
+    return { user }
   }
 }

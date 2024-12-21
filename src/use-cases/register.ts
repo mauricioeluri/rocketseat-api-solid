@@ -2,7 +2,6 @@ import { UsersRepository } from '@/repositories/users-repository'
 import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from './errors/user-alread-exists-error'
-import { P } from 'vitest/dist/chunks/environment.LoooBwUu'
 
 interface RegisterUseCaseRequest {
   name: string

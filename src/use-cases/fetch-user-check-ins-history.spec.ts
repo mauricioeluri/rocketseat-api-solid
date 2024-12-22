@@ -1,18 +1,9 @@
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
-import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { expect, describe, it, beforeEach } from 'vitest'
-import { CheckInUseCase } from './check-in'
 import { FetchUserCheckInHistoryUseCase } from './fetch-user-check-ins-history'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let sut: FetchUserCheckInHistoryUseCase
-
-const locationsMock = {
-  gym1: {
-    latitude: -31.3328149,
-    longitude: -54.0836531
-  },
-}
 
 describe('Fetch User Check-in History Use Case', () => {
   beforeEach(async () => {

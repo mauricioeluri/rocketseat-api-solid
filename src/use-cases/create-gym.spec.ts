@@ -17,7 +17,7 @@ describe('Register Use Case', () => {
       description: 'Academia do Zé, a melhor academia do Brasil',
       phone: '51999999999',
       latitude: -31.3328149,
-      longitude: -54.0836531
+      longitude: -54.0836531,
     })
 
     expect(gym.id).toEqual(expect.any(String))

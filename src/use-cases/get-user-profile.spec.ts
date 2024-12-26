@@ -17,7 +17,7 @@ describe('Get User Profile Use Case', () => {
     const createdUser = await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
-      password_hash: await hash('123456', 6)
+      password_hash: await hash('123456', 6),
     })
 
     const { user } = await sut.execute({ userId: createdUser.id })
@@ -27,11 +27,10 @@ describe('Get User Profile Use Case', () => {
   })
 
   it('should not be able to get the user profile with the wrong id', async () => {
-
     await expect(() =>
       sut.execute({
-        userId: 'non-existing-id'
-      })).rejects.toBeInstanceOf(ResourceNotFoundError)
+        userId: 'non-existing-id',
+      }),
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })
-

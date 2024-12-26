@@ -12,12 +12,12 @@ let sut: CheckInUseCase
 const locationsMock = {
   gym1: {
     latitude: -31.3328149,
-    longitude: -54.0836531
+    longitude: -54.0836531,
   },
   gym2: {
     latitude: -31.3358385,
-    longitude: -54.0969804
-  }
+    longitude: -54.0969804,
+  },
 }
 
 describe('Check-in Use Case', () => {
@@ -47,7 +47,7 @@ describe('Check-in Use Case', () => {
       gymId: 'gym-01',
       userId: 'user-01',
       userLatitude: locationsMock.gym1.latitude,
-      userLongitude: locationsMock.gym1.longitude
+      userLongitude: locationsMock.gym1.longitude,
     })
     expect(checkIn.id).toEqual(expect.any(String))
   })
@@ -58,14 +58,16 @@ describe('Check-in Use Case', () => {
       gymId: 'gym-01',
       userId: 'user-01',
       userLatitude: locationsMock.gym1.latitude,
-      userLongitude: locationsMock.gym1.longitude
+      userLongitude: locationsMock.gym1.longitude,
     })
-    await expect(() => sut.execute({
-      gymId: 'gym-01',
-      userId: 'user-01',
-      userLatitude: locationsMock.gym1.latitude,
-      userLongitude: locationsMock.gym1.longitude
-    })).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-01',
+        userId: 'user-01',
+        userLatitude: locationsMock.gym1.latitude,
+        userLongitude: locationsMock.gym1.longitude,
+      }),
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to check in twice but in different days', async () => {
@@ -74,26 +76,27 @@ describe('Check-in Use Case', () => {
       gymId: 'gym-01',
       userId: 'user-01',
       userLatitude: locationsMock.gym1.latitude,
-      userLongitude: locationsMock.gym1.longitude
+      userLongitude: locationsMock.gym1.longitude,
     })
     vi.setSystemTime(new Date('2022-01-02 10:00:00'))
     const { checkIn } = await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
       userLatitude: locationsMock.gym1.latitude,
-      userLongitude: locationsMock.gym1.longitude
+      userLongitude: locationsMock.gym1.longitude,
     })
     expect(checkIn.id).toEqual(expect.any(String))
   })
 
   it('should not be able to check in on distant gym', async () => {
     // I think it doesn't have to be another gym
-    await expect(() => sut.execute({
-      gymId: 'gym-01',
-      userId: 'user-01',
-      userLatitude: locationsMock.gym2.latitude,
-      userLongitude: locationsMock.gym2.longitude
-    })
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-01',
+        userId: 'user-01',
+        userLatitude: locationsMock.gym2.latitude,
+        userLongitude: locationsMock.gym2.longitude,
+      }),
     ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })

@@ -17,23 +17,21 @@ describe('Fetch Nearby Gyms Use Case', () => {
       description: 'The best gym for JavaScript developers',
       phone: '555-5555',
       latitude: -31.3328149,
-      longitude: -54.0836531
+      longitude: -54.0836531,
     })
     await gymsRepository.create({
       title: 'Far Gym',
       description: 'The best gym for TypeScript developers',
       phone: '555-5555',
       latitude: -31.407531,
-      longitude: -53.8670025
+      longitude: -53.8670025,
     })
 
     const { gyms } = await sut.execute({
       userLatitude: -31.3328149,
-      userLongitude: -54.0836531
+      userLongitude: -54.0836531,
     })
     expect(gyms).toHaveLength(1)
-    expect(gyms).toEqual([
-      expect.objectContaining({ title: 'Near Gym' }),
-    ])
+    expect(gyms).toEqual([expect.objectContaining({ title: 'Near Gym' })])
   })
 })

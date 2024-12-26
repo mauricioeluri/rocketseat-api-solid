@@ -11,7 +11,6 @@ describe('Fetch User Check-in History Use Case', () => {
     sut = new FetchUserCheckInHistoryUseCase(checkInsRepository)
   })
 
-
   it('should be able to fetch check in history', async () => {
     await checkInsRepository.create({
       user_id: 'user-01',
@@ -23,7 +22,7 @@ describe('Fetch User Check-in History Use Case', () => {
     })
     const { checkIns } = await sut.execute({
       userId: 'user-01',
-      page: 1
+      page: 1,
     })
     expect(checkIns).toHaveLength(2)
     expect(checkIns).toEqual([
@@ -40,7 +39,7 @@ describe('Fetch User Check-in History Use Case', () => {
     }
     const { checkIns } = await sut.execute({
       userId: 'user-01',
-      page: 2
+      page: 2,
     })
     expect(checkIns).toHaveLength(2)
     expect(checkIns).toEqual([

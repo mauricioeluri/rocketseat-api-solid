@@ -9,6 +9,7 @@ export class PrismaCheckInsRepository implements CheckInsRepository {
       where: { id },
     })
   }
+
   async findByUserIdOnDate(userId: string, date: Date) {
     const startOfTheDay = dayjs(date).startOf('date')
     const endOfTheDay = dayjs(date).endOf('date')
@@ -23,25 +24,29 @@ export class PrismaCheckInsRepository implements CheckInsRepository {
       },
     })
   }
+
   async findManyByUserId(userId: string, page: number) {
     return await prisma.checkIn.findMany({
       where: {
-        user_id: userId
+        user_id: userId,
       },
       take: 20,
       skip: (page - 1) * 20,
     })
   }
+
   async countByUserId(userId: string) {
     return await prisma.checkIn.count({
       where: { user_id: userId },
     })
   }
+
   async create(data: Prisma.CheckInUncheckedCreateInput) {
     return await prisma.checkIn.create({
       data,
     })
   }
+
   async save(data: CheckIn) {
     return await prisma.checkIn.update({
       where: { id: data.id },

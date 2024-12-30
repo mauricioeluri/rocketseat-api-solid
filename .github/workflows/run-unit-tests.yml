@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      name: Checkout
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v2
@@ -20,8 +20,5 @@ jobs:
           node-version: '18'
           cache: 'pnpm'
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run tests
+      - run: pnpm install
       - run: pnpm run test
